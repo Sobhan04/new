@@ -1,0 +1,56 @@
+---
+title: "Homework"
+author: "Sobhan Bahrami"
+date: "2/3/2022"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+#install.packages("ggpmisc")  
+library(tidyverse)
+library(ggplot2)
+library(ggpmisc)
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+read_counts <- read_tsv("/home/sobhan/Desktop/Bowtie_aligned_>=1_time_normalized_by_read_counts.csv")
+print(read_counts)
+Average<-c(Two_Four_c_rep1=mean(read_counts$Two_Four_c_rep1),Two_Four_c_rep2=mean(read_counts$Two_Four_c_rep2),Four_Eight_c_rep1=mean(read_counts$Four_Eight_c_rep1),Four_Eight_c_rep2=mean(read_counts$Four_Eight_c_rep2),Eight_Sixteen_c_rep1=mean(read_counts$Eight_Sixteen_c_rep1),Eight_Sixteen_c_rep2=mean(read_counts$Eight_Sixteen_c_rep2))
+Average
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+png(file="/home/sobhan/Desktop/2_4_c_rep1.VS.2_4_c_rep2.png", width=1200, height=900)
+ggplot(read_counts, aes(x=Two_Four_c_rep1, y=Two_Four_c_rep2)) +
+  geom_point(shape=18, color="orange")+
+  #geom_text(label=read_counts$Gene)+
+  geom_smooth(method=lm, se=FALSE, linetype="dashed", color="blue")+ geom_rug()+stat_poly_eq(formula = y ~ x, aes(label = paste(..eq.label..)), parse = TRUE)+labs(x = expression(italic(Two_Four_c_rep1)), y = expression(italic(Two_Four_c_rep2)))
+dev.off()
+
+#png(file="/home/sobhan/Desktop/4_8_c_rep1.VS.4_8_c_rep2.png", width=1200, height=900)
+ggplot(read_counts, aes(x=Four_Eight_c_rep1, y=Four_Eight_c_rep2)) +
+  geom_point(shape=18, color="orange")+
+  #geom_text(label=read_counts$Gene)+
+  geom_smooth(method=lm, se=FALSE, linetype="dashed", color="blue")+ geom_rug()+stat_poly_eq(formula = y ~ x, aes(label = paste(..eq.label..)), parse = TRUE)+labs(x = expression(italic(Four_Eight_c_rep1)), y = expression(italic(Four_Eight_c_rep2)))
+dev.off()
+png(file="/home/sobhan/Desktop/8_16_c_rep1.VS.8_16_c_rep2.png", width=1200, height=900)
+ggplot(read_counts, aes(x=Eight_Sixteen_c_rep1, y=Eight_Sixteen_c_rep2)) +
+  geom_point(shape=18, color="orange")+
+  #geom_text(label=read_counts$Gene)+
+  geom_smooth(method=lm, se=FALSE, linetype="dashed", color="blue")+ geom_rug()+stat_poly_eq(formula = y ~ x, aes(label = paste(..eq.label..)), parse = TRUE)+labs(x = expression(italic(Eight_Sixteen_c_rep1)), y = expression(italic(Eight_Sixteen_c_rep2)))
+dev.off()
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
